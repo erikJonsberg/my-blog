@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+	Bars3Icon,
+	XMarkIcon,
+	ArrowSmallRightIcon,
+} from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import DarkModeSelect from "../ui/dark-mode-select";
+import Logo from "./logo";
 
 const navigation = [
 	{ name: "Home", href: "/" },
@@ -22,11 +26,10 @@ export default function Navigation() {
 				aria-label='Global'
 			>
 				<div className='flex items-center justify-center gap-x-12'>
-					<a href='#' className='-m-1.5 p-1.5'>
-						<span className='sr-only'>Your Company</span>
-					</a>
+					<Link href='/' className='-m-1.5 p-1.5'>
+						<Logo />
+					</Link>
 					<div className='hidden lg:flex lg:gap-x-12'>
-						<DarkModeSelect />
 						{navigation.map((item) => (
 							<Link
 								key={item.name}
@@ -48,13 +51,18 @@ export default function Navigation() {
 						<Bars3Icon className='h-6 w-6' aria-hidden='true' />
 					</button>
 				</div>
-				<div className='hidden lg:flex'>
-					<a
+				<div className='hidden lg:flex items-center gap-x-12'>
+					<DarkModeSelect />
+					<Link
 						href='#'
-						className='text-sm font-semibold leading-6 dark:text-gray-50 text-gray-900'
+						className='inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 					>
-						Log in <span aria-hidden='true'>&rarr;</span>
-					</a>
+						Log in
+						<ArrowSmallRightIcon
+							className='-mr-0.5 h-5 w-5'
+							aria-hidden='true'
+						/>
+					</Link>
 				</div>
 			</nav>
 			<Transition show={mobileMenuOpen} as={Fragment}>
@@ -71,11 +79,6 @@ export default function Navigation() {
 					>
 						<Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
 							<div className='flex items-center justify-between'>
-								<a href='#' className='-m-1.5 p-1.5'>
-									<span className='sr-only'>Your Company</span>
-									Logo
-								</a>
-								<DarkModeSelect />
 								<button
 									type='button'
 									className='-m-2.5 rounded-md p-2.5 dark:text-gray-200 text-gray-700'
@@ -98,13 +101,14 @@ export default function Navigation() {
 											</a>
 										))}
 									</div>
-									<div className='py-6'>
-										<a
+									<div className='py-6 flex items-center justify-between w-32'>
+										<Link
 											href='#'
 											className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 dark:text-gray-50 text-gray-900 dark:hover:bg-gray-900 hover:bg-gray-50'
 										>
 											Log in
-										</a>
+										</Link>
+										<DarkModeSelect />
 									</div>
 								</div>
 							</div>

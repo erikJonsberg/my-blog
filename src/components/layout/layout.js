@@ -16,10 +16,10 @@ export const lora = Lora({
 export default function Layout(props) {
 	return (
 		<>
-			<Header />
 			<main
-				className={`${inter.variable} ${lora.variable} font-body flex min-h-screen flex-col items-center justify-center p-24`}
+				className={`${inter.variable} ${lora.variable} font-body flex-col mx-auto max-w-full min-h-screen`}
 			>
+				<Header />
 				{props.children}
 			</main>
 		</>

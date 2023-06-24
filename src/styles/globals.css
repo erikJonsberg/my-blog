@@ -3,28 +3,35 @@
 @tailwind utilities;
 
 .light {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 245, 245, 245;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 33, 33, 33;
+  --background-start: #fff;
+  --background-end: #e6e6e6;
 }
 
 .dark {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 250, 250, 250;
+    --background-start: #082f49;
+    --background-end: #020617;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+  background-image: linear-gradient(
+      to bottom right,
+    var(--background-end),
+    var(--background-start));
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 @layer base {
+  body {
+    @apply antialiased;
+  }
+
   a:hover {
     @apply underline;
   }
@@ -75,6 +82,12 @@ body {
 
   li {
     @apply mb-2;
+  }
+  }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
 }
 

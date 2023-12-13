@@ -11,15 +11,18 @@ export default async function FeaturedPosts({
 	return (
 		<section className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-24'>
 			<div className='mx-auto grid max-w-2xl grid-rows-1 grid-cols-1 gap-8 mt-10 lg:max-w-none lg:grid-cols-2'>
-				{posts.map((post) => (
+				{posts.map(async (post) => (
 					<div key={post._id}>
 						<div className='relative h-96 isolate flex flex-col justify-end overflow-hidden rounded-md bg-gray-900'>
 							<Image
-								src={post.mainImage}
+								src={post.mainImage.url}
 								className='absolute inset-0 -z-10 h-full w-full object-cover'
 								width={768}
 								height={1024}
+								priority
 								alt={post.title}
+								placeholder='blur'
+								blurDataURL={post.mainImage.metadata.lqip}
 							/>
 							<div className='w-full pb-2 lg:p-0 backdrop-blur-xl bg-gray-600/20 h-24 flex justify-between items-center'>
 								<div className='px-4 flex flex-col'>

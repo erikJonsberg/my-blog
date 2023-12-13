@@ -1,10 +1,6 @@
 import { SanityDocument } from "@sanity/client";
 import Link from "next/link";
 import Image from "next/image";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/sanity/lib/client";
-
-const builder = imageUrlBuilder(client);
 
 export default function Category({ category }: { category: SanityDocument }) {
 	return (
@@ -17,15 +13,13 @@ export default function Category({ category }: { category: SanityDocument }) {
 					<div key={post?._id}>
 						<div className='relative h-96 isolate flex flex-col justify-end overflow-hidden rounded-md bg-gray-900'>
 							<Image
-								src={builder
-									.image(post?.mainImage)
-									.width(1024)
-									.height(768)
-									.url()}
+								src={post?.mainImage.url}
 								className='absolute inset-0 -z-10 h-full w-full object-cover'
 								width={768}
 								height={1024}
 								priority
+								placeholder='blur'
+								blurDataURL={post?.mainImage.metadata.lqip}
 								alt={post?.title}
 							/>
 							<div className='absolute bottom-0 w-full pb-2 lg:p-0 backdrop-blur-xl bg-gray-600/20 h-24 flex justify-between items-center'>

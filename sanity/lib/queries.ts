@@ -4,7 +4,7 @@ export const postsQuery = groq`*[_type == "post" && defined(slug.current) ]{
     _id,
     title,
     "slug": slug.current,
-    "mainImage": mainImage.asset->url,
+    "mainImage": mainImage.asset->{url, metadata {lqip}},
     body,
     publishedAt,
     author->{
@@ -22,7 +22,7 @@ export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
     "slug": slug.current,
-    "mainImage": mainImage.asset->url,
+    "mainImage": mainImage.asset->{url, metadata {lqip}},
     body,
     publishedAt,
     author->{
@@ -55,7 +55,7 @@ export const categoryQuery = groq`*[_type == 'category' && slug.current == $slug
     _id,
     title,
     "slug": slug.current,
-    "mainImage": mainImage.asset->url,
+    "mainImage": mainImage.asset->{url, metadata {lqip}},
     body,
     publishedAt,
     author->{
@@ -67,9 +67,4 @@ export const categoryQuery = groq`*[_type == 'category' && slug.current == $slug
 
 export const categoryPathsQuery = groq`*[_type == "category" && defined(slug.current)][]{
     "params": { "slug": slug.current }
-  }`;
-
-export const imagesQuery = groq`*[_type == 'post' && defined(slug.current) ]{
-    _id,
-    'mainImage': mainImage.asset->url,
   }`;

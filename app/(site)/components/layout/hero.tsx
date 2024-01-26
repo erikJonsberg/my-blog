@@ -3,6 +3,7 @@
 import { Reveal } from "../animation/reveal";
 import { DotGrid } from "../animation/dot-grid";
 import Link from "next/link";
+import { CTAArrow } from "../animation/cta-arrow";
 
 export default function Hero() {
 	return (
@@ -45,6 +46,7 @@ export default function Hero() {
 				</div>
 				<div className='hidden lg:block'>
 					<DotGrid />
+					<CTAArrow />
 				</div>
 			</div>
 		</section>

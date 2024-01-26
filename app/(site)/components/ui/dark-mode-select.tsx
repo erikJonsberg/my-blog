@@ -94,10 +94,10 @@ export default function DarkModeSelect() {
 										className={({ active, selected }) =>
 											classNames(
 												active
-													? "bg-slate-600/10 dark:bg-slate-600/30 text-indigo-600 dark:text-indigo-300"
+													? "bg-gray-600/10 dark:bg-gray-600/30 text-purple-600 dark:text-purple-300"
 													: "text-gray-900 dark:text-gray-50",
 												selected
-													? "text-indigo-600 dark:text-indigo-300"
+													? "text-purple-600 dark:text-purple-300"
 													: "text-gray-900 dark:text-gray-50",
 												"relative cursor-default py-2 pl-3 pr-9 ml-0"
 											)

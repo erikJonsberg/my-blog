@@ -1,12 +1,8 @@
 import Image from "next/image";
 import { PortableTextComponent } from "@/sanity/lib/portable-text-utils";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/sanity/lib/client";
 import { SanityDocument } from "@sanity/client";
 
-const builder = imageUrlBuilder(client);
-
-export default function Post({ post }: { post: SanityDocument }) {
+export default async function Post({ post }: { post: SanityDocument }) {
 	return (
 		<article className='min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20 prose dark:prose-invert'>
 			<div className='flex items-center justify-center p-6'>
@@ -18,12 +14,15 @@ export default function Post({ post }: { post: SanityDocument }) {
 				<div className='mx-auto max-w-3xl'>
 					{post?.mainImage ? (
 						<Image
-							src={builder.image(post.mainImage).width(1024).height(768).url()}
-							width={1024}
-							height={768}
-							alt={post.title}
-							className='rounded-lg drop-shadow-md mb-6 z-0'
-						/>
+								src={post.mainImage.url}
+								className='rounded-lg drop-shadow-md mb-6 z-0'
+								width={1024}
+								height={768}
+								priority
+								alt={post.title}
+								placeholder='blur'
+								blurDataURL={post.mainImage.metadata.lqip}
+							/>
 					) : null}
 
 					{post?.body ? <PortableTextComponent value={post.body} /> : null}

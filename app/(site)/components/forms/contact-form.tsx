@@ -1,186 +1,208 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState } from "react"; 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { contactSchema, Contact } from "../../lib/zod-schema";
-import { SuccessNotification, ErrorNotification } from "../ui/notifications";
-import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
-import postToSanity from "./post-to-sanity";
-
+import { ErrorMessage } from "@hookform/error-message";
+import { contactSchema, Inputs } from "../../lib/validation-schema";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-	BuildingOffice2Icon,
-	EnvelopeIcon,
-	PhoneIcon,
-} from "@heroicons/react/24/outline";
+	CheckCircleIcon,
+	XMarkIcon,
+	ExclamationCircleIcon,
+} from "@heroicons/react/20/solid";
+import { set } from "sanity";
 
-export default function ContactForm() {
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState,
-		formState: { errors, isSubmitting, isSubmitSuccessful },
-	} = useForm<Contact>({
-		resolver: zodResolver(contactSchema),
-	});
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const auth = process.env.NEXT_PUBLIC_SANITY_API_WRITE_TOKEN;
 
-	const onSubmit = (data: any) => postToSanity(data);
+export function ContactForm() {
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(false);
+	 const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<Inputs>({
+    resolver: zodResolver(contactSchema),
+  });
 
-	useEffect(() => {
-		if (formState.isSubmitSuccessful) {
-			reset();
-		}
-	}, [formState, isSubmitSuccessful, reset]);
+  const onSubmit = async (data: Inputs) => {
+	const mutations = [{
+				create: {
+					_type: "contact",
+					email: data.email,
+					name: data.name,
+					message: data.message,
+				},
+			}]
+    fetch(`https://${projectId}.api.sanity.io/v2021-06-07/data/mutate/${dataset}`, {
+      method: "POST",
+      body: JSON.stringify({mutations}),
+      headers: {
+        "Content-Type": "application/json",
+		Authorization: `Bearer ${auth}`,
+      },
+    })
+  .then(response => response.json())
+  .then(result => console.log(result))
+  .catch(error => console.error(error))
+
+   if (data) {
+	  reset();
+	  setSuccess(true);
+	} else {
+	  setError(true);
+	}
+
+  };
 
 	return (
-		<div className='relative isolate -mt-[111.33px]'>
-			<div className='relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48'>
-				<div className='mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 mt-[111.33px]'>
-					<div className='mx-auto max-w-xl lg:mx-0 lg:max-w-lg'>
-						<h2 className='text-3xl font-bold tracking-tight text-black dark:text-white'>
-							Get in touch
-						</h2>
-						<p className='mt-6 text-lg leading-8 text-gray-900 dark:text-gray-300'>
-							Proin volutpat consequat porttitor cras nullam gravida at. Orci
-							molestie a eu arcu. Sed ut tincidunt integer elementum id sem.
-							Arcu sed malesuada et magna.
-						</p>
-						<dl className='mt-10 space-y-4 text-base leading-7 text-gray-900 dark:text-gray-300'>
-							<div className='flex gap-x-4'>
-								<dt className='flex-none'>
-									<span className='sr-only'>Address</span>
-									<BuildingOffice2Icon
-										className='h-7 w-6 text-gray-800 dark:text-gray-400'
-										aria-hidden='true'
-									/>
-								</dt>
-								<dd>
-									15 Lincoln Street
-									<br />
-									Greenfield, MA 01301
-								</dd>
-							</div>
-							<div className='flex gap-x-4'>
-								<dt className='flex-none'>
-									<span className='sr-only'>Telephone</span>
-									<PhoneIcon
-										className='h-7 w-6 text-gray-800 dark:text-gray-400'
-										aria-hidden='true'
-									/>
-								</dt>
-								<dd>
-									<a className='hover:text-white' href='tel:+1 (555) 234-5678'>
-										+1 (413) 522-3431
-									</a>
-								</dd>
-							</div>
-							<div className='flex gap-x-4'>
-								<dt className='flex-none'>
-									<span className='sr-only'>Email</span>
-									<EnvelopeIcon
-										className='h-7 w-6 dark:text-gray-400'
-										aria-hidden='true'
-									/>
-								</dt>
-								<dd>
-									<a
-										className='hover:text-white'
-										href='mailto:hello@example.com'
-									>
-										ebjonsberg@gmail.com
-									</a>
-								</dd>
-							</div>
-						</dl>
-					</div>
-
-					<form onSubmit={handleSubmit(onSubmit)} noValidate>
-						<div className='mx-auto max-w-xl lg:mr-0 lg:max-w-lg'>
-							<div className='grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2'>
-								<div className='sm:col-span-2'>
-									<div className='mt-2.5 relative'>
-										<label
-											className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-											htmlFor='name'
-										>
-											Name
-										</label>
-										<input
-											type='text'
-											required
-											placeholder='Your name'
-											{...register("name", { required: true })}
-											id='name'
-											autoComplete='name'
-											className='text-gray-900 dark:text-gray-300 focus:ring-indigo-500 w-full rounded-md border-0 dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset dark:ring-white/10 ring-black/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6'
-										/>
-										{errors.name && (
-											<span className='text-red-800 block mt-2'>
-												{errors.name?.message}
-											</span>
-										)}
-									</div>
-								</div>
-
-								<div className='sm:col-span-2'>
-									<label
-										className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-										htmlFor='email'
-									>
-										Email
-									</label>
-									<input
-										type='email'
-										id='email'
-										placeholder='name@example.com'
-										{...register("email", { required: true })}
-										autoComplete='email'
-										className='text-gray-900 dark:text-gray-300 focus:ring-indigo-500 w-full rounded-md border-0 dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset dark:ring-white/10 ring-black/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6'
-									/>
-									{errors.email && (
-										<span className='text-red-800 block mt-2'>
-											{errors.email?.message}
-										</span>
-									)}
-								</div>
-
-								<div className='sm:col-span-2'>
-									<label
-										className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
-										htmlFor='message'
-									>
-										Message
-									</label>
-									<textarea
-										id='message'
-										rows={5}
-										autoComplete='message'
-										{...register("message", { required: true })}
-										className='text-gray-900 dark:text-gray-300 focus:ring-indigo-500 w-full rounded-md border-0 dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset dark:ring-white/10 ring-black/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6'
-									/>
-									{errors.message && (
-										<span className='text-red-800 block mt-2'>
-											{errors.message?.message}
-										</span>
-									)}
-								</div>
-							</div>
-							<div className='mt-8 flex justify-end'>
-								<button
-									type='submit'
-									disabled={isSubmitting}
-									className='transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-700 duration-300 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-								>
-									Send message
-								</button>
-								{/* {isSubmitSuccessful && <p>{SuccessNotification()}</p>}
-								{errors?.root?.server && <p>{ErrorNotification()}</p>} */}
-							</div>
-						</div>
-					</form>
-				</div>
+		<div className='mx-auto max-w-xl lg:mr-0 lg:max-w-lg flex flex-col justify-between h-full'>
+			<form onSubmit={handleSubmit(onSubmit)} noValidate>
+				<div className='relative h-[6.5rem]'>
+				<label
+					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+					htmlFor='name'
+				>
+					Name
+				</label>
+				<input
+					type='text'
+					required
+					placeholder='Your name'
+					{...register("name", { required: true })}
+					id='name'
+					autoComplete='name'
+					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
+						errors.name ? " border-red-500" : ""
+					}`}
+				/>
+				<AnimatePresence>
+					{errors.name && (
+						<motion.span
+							key='name'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className='text-xs italic text-red-500'
+						>
+							<ErrorMessage name='name' errors={errors} />
+						</motion.span>
+					)}
+				</AnimatePresence>
 			</div>
-		</div>
+
+			<div className='h-[6.5rem] relative'>
+				<label
+					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+					htmlFor='email'
+				>
+					Email
+				</label>
+				<input
+					type='email'
+					id='email'
+					placeholder='name@example.com'
+					{...register("email", { required: true })}
+					autoComplete='email'
+					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
+						errors.email ? " border-red-500" : ""
+					}`}
+				/>
+				<AnimatePresence>
+					{errors.email && (
+						<motion.span
+							key='email'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className='text-xs italic text-red-500'
+						>
+							<ErrorMessage name='email' errors={errors} />
+						</motion.span>
+					)}
+				</AnimatePresence>
+			</div>
+
+			<div className='h-44 relative'>
+				<label
+					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+					htmlFor='message'
+				>
+					Message
+				</label>
+				<textarea
+					id='message'
+					rows={5}
+					{...register("message", { required: true })}
+					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
+						errors.message ? " border-red-500" : ""
+					}`}
+				/>
+				<AnimatePresence>
+					{errors.message && (
+						<motion.span
+							key='message'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className='text-xs italic text-red-500'
+						>
+							<ErrorMessage name='message' errors={errors} />
+						</motion.span>
+					)}
+				</AnimatePresence>
+			</div>
+			<div className='mt-8 flex gap-6 justify-end'>
+				<button
+					type='submit'
+					disabled={isSubmitting}
+					className='w-60 rounded-md bg-indigo-600 p-3 text-center font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+				>
+					Send message
+				</button>
+				</div>
+				<AnimatePresence>
+						{success && <motion.div
+						key='success'
+						initial={{ scale: 0, opacity: 0 }}
+						animate={{ scale: 1, opacity: 1 }}
+						exit={{ scale: 0, opacity: 0 }}
+						transition={{ type: "spring" }}
+						className='flex gap-1 w-72 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-red-500 text-gray-900 py-1 px-2 rounded-full'
+					>
+						<ExclamationCircleIcon className='w-6 h-6' />
+						An error occured!
+						<button
+							onClick={() => setSuccess(false)}
+							className='w-6 h-6 ml-auto focus:outline-none text-gray-900'
+						>
+							<XMarkIcon />
+						</button>
+					</motion.div>}
+
+				{error && <motion.div
+						key='error'
+						initial={{ scale: 0, opacity: 0 }}
+						animate={{ scale: 1, opacity: 1 }}
+						exit={{ scale: 0, opacity: 0 }}
+						transition={{ type: "spring" }}
+						className='flex gap-1 w-72 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-green-500 text-gray-900 py-1 px-2 rounded-full'
+					>
+						<CheckCircleIcon className='w-6 h-6' />
+						Form sent successfully!
+						<button
+							onClick={() => setError(false)}
+							className='w-6 h-6 ml-auto focus:outline-none text-gray-900'
+						>
+							<XMarkIcon />
+						</button>
+					</motion.div>}
+</AnimatePresence>
+				</form>
+			</div>
 	);
 }

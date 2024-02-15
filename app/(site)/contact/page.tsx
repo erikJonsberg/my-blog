@@ -1,4 +1,4 @@
-import { ContactForm } from "../components/forms/contact-form";
+import { Form } from "../components/forms/contact-form";
 import {
 	BuildingOffice2Icon,
 	EnvelopeIcon,
@@ -67,7 +67,7 @@ export default function Contact() {
 							</div>
 						</dl>
 					</div>
-					<ContactForm />
+					<Form />
 				</div>
 			</div>
 		</div>

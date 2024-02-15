@@ -6,7 +6,7 @@ export const contactSchema = z.object({
 		.string()
 		.min(1, "Your email is required")
 		.email("Your email address is invalid"),
-	message: z.string().min(1, "A message is required"),
+	messageFromUser: z.string().min(1, "A message is required"),
 });
 
 export type Inputs = z.infer<typeof contactSchema>;

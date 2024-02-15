@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 
-export const postsQuery = groq`*[_type == "post" && defined(slug.current) ]{
+// Posts
+export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current) ]{
     _id,
     title,
     "slug": slug.current,
@@ -18,7 +19,8 @@ export const postsQuery = groq`*[_type == "post" && defined(slug.current) ]{
     },
     }`;
 
-export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
+// Post
+export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
     "slug": slug.current,
@@ -40,14 +42,16 @@ export const postPathsQuery = groq`*[_type == "post" && defined(slug.current)][]
     "params": { "slug": slug.current }
   }`;
 
-export const categoriesQuery = groq`*[_type == "category" && defined(slug.current) ]{
+// Categories
+export const CATS_QUERY = groq`*[_type == "category" && defined(slug.current) ]{
     _id,
     title,
     "slug": slug.current,
     description,
     }`;
 
-export const categoryQuery = groq`*[_type == 'category' && slug.current == $slug][0]{
+// Category
+export const CAT_QUERY = groq`*[_type == 'category' && slug.current == $slug][0]{
     _id,
   title,
     "slug": slug.current,

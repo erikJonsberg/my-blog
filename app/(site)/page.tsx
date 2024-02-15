@@ -1,23 +1,22 @@
-import FeaturedPosts from "./components/posts/featured-posts";
+import Posts from "./components/posts/all-posts";
 import Hero from "./components/layout/hero";
-import { postsQuery } from "@/sanity/lib/queries";
-import { sanityFetch, token } from "@/sanity/lib/fetch";
+import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { loadQuery } from "@/sanity/lib/store";
 import { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
 import PreviewPosts from "./components/posts/preview-posts";
-import PreviewProvider from "./components/providers/preview-provider";
 
 export default async function Home() {
-	const posts = await sanityFetch<SanityDocument[]>({ query: postsQuery });
-	const isDraftMode = draftMode().isEnabled;
-	if (isDraftMode && token) {
-		return (
-			<PreviewProvider token={token}>
-				<PreviewPosts posts={posts} />
-			</PreviewProvider>
-		);
-	}
-	return (
+	const initial = await loadQuery<SanityDocument[]>(
+		POSTS_QUERY,
+		{},
+		{
+			perspective: draftMode().isEnabled ? "previewDrafts" : "published",
+		}
+	);
+	return draftMode().isEnabled ? (
+		<PreviewPosts initial={initial} />
+	) : (
 		<main className='min-h-screen container mx-auto'>
 			<Hero />
 			<div className='relative mb-16'>
@@ -30,7 +29,7 @@ export default async function Home() {
 				My Projects
 			</h2>
 			<div className='mt-5'>
-				<FeaturedPosts posts={posts} />
+				<Posts posts={initial.data} />
 			</div>
 		</main>
 	);

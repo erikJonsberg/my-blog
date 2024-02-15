@@ -1,14 +1,12 @@
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
+import { structureTool } from "sanity/structure";
 import { codeInput } from "@sanity/code-input";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schema";
-import StudioNavbar from "./sanity/components/studio-navbar";
-import StudioLogo from "./sanity/components/studio-logo";
-import { myTheme } from "./sanity/components/theme";
-import { defaultDocumentNode } from "./sanity/desk/default-document-node";
+import { presentationTool } from "sanity/presentation";
+import { locate } from "@/sanity/components/locate";
 
 export default defineConfig({
 	basePath: "/studio",
@@ -16,16 +14,17 @@ export default defineConfig({
 	dataset,
 	schema,
 	plugins: [
-		deskTool({ defaultDocumentNode }),
+		structureTool(),
 		visionTool({ defaultApiVersion: apiVersion }),
 		unsplashImageAsset(),
 		codeInput(),
+		presentationTool({
+			locate,
+			previewUrl: {
+				draftMode: {
+					enable: "/api/preview",
+				},
+			},
+		}),
 	],
-	studio: {
-		components: {
-			navbar: StudioNavbar,
-			logo: StudioLogo,
-		},
-	},
-	theme: myTheme,
 });

@@ -1,68 +1,43 @@
 "use client";
 
-import { useState } from "react"; 
+import {
+	FieldErrors,
+	useForm,
+	UseFormRegister,
+	FieldPath,
+} from "react-hook-form";
+import { getFormData, State } from "@/sanity/actions/actions";
+import { useFormState, useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { contactSchema } from "../../lib/validation-schema";
 import { ErrorMessage } from "@hookform/error-message";
-import { contactSchema, Inputs } from "../../lib/validation-schema";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
 	CheckCircleIcon,
-	XMarkIcon,
 	ExclamationCircleIcon,
 } from "@heroicons/react/20/solid";
-import { set } from "sanity";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-const auth = process.env.NEXT_PUBLIC_SANITY_API_WRITE_TOKEN;
+export interface FormValues {
+	name: string;
+	email: string;
+	messageFromUser: string;
+}
 
-export function ContactForm() {
-	const [success, setSuccess] = useState(false);
-	const [error, setError] = useState(false);
-	 const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<Inputs>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: Inputs) => {
-	const mutations = [{
-				create: {
-					_type: "contact",
-					email: data.email,
-					name: data.name,
-					message: data.message,
-				},
-			}]
-    fetch(`https://${projectId}.api.sanity.io/v2021-06-07/data/mutate/${dataset}`, {
-      method: "POST",
-      body: JSON.stringify({mutations}),
-      headers: {
-        "Content-Type": "application/json",
-		Authorization: `Bearer ${auth}`,
-      },
-    })
-  .then(response => response.json())
-  .then(result => console.log(result))
-  .catch(error => console.error(error))
-
-   if (data) {
-	  reset();
-	  setSuccess(true);
-	} else {
-	  setError(true);
-	}
-
-  };
+function FormContent({
+	register,
+	isValid,
+	errors,
+}: {
+	register: UseFormRegister<FormValues>;
+	isValid: boolean;
+	errors: FieldErrors<FormValues>;
+}) {
+	const { pending } = useFormStatus();
 
 	return (
-		<div className='mx-auto max-w-xl lg:mr-0 lg:max-w-lg flex flex-col justify-between h-full'>
-			<form onSubmit={handleSubmit(onSubmit)} noValidate>
-				<div className='relative h-[6.5rem]'>
+		<div className='grid grid-cols-1 gap-3 relative'>
+			<div className='h-[6.5rem]'>
 				<label
 					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 					htmlFor='name'
@@ -71,9 +46,8 @@ export function ContactForm() {
 				</label>
 				<input
 					type='text'
-					required
 					placeholder='Your name'
-					{...register("name", { required: true })}
+					{...register("name")}
 					id='name'
 					autoComplete='name'
 					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
@@ -89,13 +63,17 @@ export function ContactForm() {
 							exit={{ opacity: 0 }}
 							className='text-xs italic text-red-500'
 						>
-							<ErrorMessage name='name' errors={errors} />
+							<ErrorMessage
+								name='name'
+								errors={errors}
+								message='Please enter your name'
+							/>
 						</motion.span>
 					)}
 				</AnimatePresence>
 			</div>
 
-			<div className='h-[6.5rem] relative'>
+			<div className='h-[6.5rem]'>
 				<label
 					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 					htmlFor='email'
@@ -106,7 +84,7 @@ export function ContactForm() {
 					type='email'
 					id='email'
 					placeholder='name@example.com'
-					{...register("email", { required: true })}
+					{...register("email")}
 					autoComplete='email'
 					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
 						errors.email ? " border-red-500" : ""
@@ -121,13 +99,13 @@ export function ContactForm() {
 							exit={{ opacity: 0 }}
 							className='text-xs italic text-red-500'
 						>
-							<ErrorMessage name='email' errors={errors} />
+							{errors.email.message}
 						</motion.span>
 					)}
 				</AnimatePresence>
 			</div>
 
-			<div className='h-44 relative'>
+			<div className='h-44'>
 				<label
 					className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 					htmlFor='message'
@@ -135,23 +113,23 @@ export function ContactForm() {
 					Message
 				</label>
 				<textarea
-					id='message'
+					id='messageFromUser'
 					rows={5}
-					{...register("message", { required: true })}
+					{...register("messageFromUser")}
 					className={`form-input text-gray-900 dark:text-gray-300 focus:ring-purple-500 w-full rounded-md dark:bg-white/5 bg-black/5 px-3.5 py-2 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 dark:ring-white/10 ring-black/10 ${
-						errors.message ? " border-red-500" : ""
+						errors.messageFromUser ? " border-red-500" : ""
 					}`}
 				/>
 				<AnimatePresence>
-					{errors.message && (
+					{errors.messageFromUser && (
 						<motion.span
-							key='message'
+							key='messageFromUser'
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							className='text-xs italic text-red-500'
 						>
-							<ErrorMessage name='message' errors={errors} />
+							{errors.messageFromUser.message}
 						</motion.span>
 					)}
 				</AnimatePresence>
@@ -159,50 +137,93 @@ export function ContactForm() {
 			<div className='mt-8 flex gap-6 justify-end'>
 				<button
 					type='submit'
-					disabled={isSubmitting}
+					disabled={pending || !isValid}
 					className='w-60 rounded-md bg-indigo-600 p-3 text-center font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 				>
-					Send message
+					{pending ? <span>Sending...</span> : <span>Send</span>}
 				</button>
-				</div>
-				<AnimatePresence>
-						{success && <motion.div
+			</div>
+		</div>
+	);
+}
+
+export function Form() {
+	const {
+		register,
+		formState: { isValid, errors },
+		setError,
+		reset,
+	} = useForm<FormValues>({
+		mode: "all",
+		resolver: zodResolver(contactSchema),
+	});
+	const [state, formAction] = useFormState<State, FormData>(getFormData, null);
+	const [successsMsg, setSuccesssMsg] = useState(false);
+	const [errorMsg, setErrorMsg] = useState(false);
+
+	useEffect(() => {
+		if (!state) {
+			return;
+		}
+		if (state.status === "error") {
+			state.errors?.forEach((error) => {
+				setError(error.path as FieldPath<FormValues>, {
+					message: error.message,
+				});
+			});
+
+			setErrorMsg(true);
+			reset();
+
+			const timer = setTimeout(() => {
+				setErrorMsg(false);
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+		if (state.status === "success") {
+			setSuccesssMsg(true);
+			reset();
+			const timer = setTimeout(() => {
+				setSuccesssMsg(false);
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [state, setError, reset]);
+
+	return (
+		<>
+			<form action={formAction}>
+				<FormContent register={register} isValid={isValid} errors={errors} />
+			</form>
+			<AnimatePresence>
+				{successsMsg && (
+					<motion.div
 						key='success'
 						initial={{ scale: 0, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						exit={{ scale: 0, opacity: 0 }}
-						transition={{ type: "spring" }}
-						className='flex gap-1 w-72 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-red-500 text-gray-900 py-1 px-2 rounded-full'
+						animate={{ scale: 1, opacity: 1, transition: { ease: "easeOut" } }}
+						exit={{ scale: 0, opacity: 0, transition: { ease: "easeIn" } }}
+						className='flex gap-1 w-72 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-green-500 text-gray-900 py-1 px-2 rounded-full'
 					>
-						<ExclamationCircleIcon className='w-6 h-6' />
-						An error occured!
-						<button
-							onClick={() => setSuccess(false)}
-							className='w-6 h-6 ml-auto focus:outline-none text-gray-900'
-						>
-							<XMarkIcon />
-						</button>
-					</motion.div>}
-
-				{error && <motion.div
+						<CheckCircleIcon className='w-6 h-6' />
+						{state?.message}
+					</motion.div>
+				)}
+			</AnimatePresence>
+			<AnimatePresence>
+				{errorMsg && (
+					<motion.div
 						key='error'
 						initial={{ scale: 0, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0, opacity: 0 }}
-						transition={{ type: "spring" }}
-						className='flex gap-1 w-72 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-green-500 text-gray-900 py-1 px-2 rounded-full'
+						transition={{ ease: "easeOut" }}
+						className='flex gap-1 w-96 fixed top-[7.5rem] left-0 right-0 m-auto z-50 bg-red-500 text-gray-900 py-1 px-2 rounded-full'
 					>
-						<CheckCircleIcon className='w-6 h-6' />
-						Form sent successfully!
-						<button
-							onClick={() => setError(false)}
-							className='w-6 h-6 ml-auto focus:outline-none text-gray-900'
-						>
-							<XMarkIcon />
-						</button>
-					</motion.div>}
-</AnimatePresence>
-				</form>
-			</div>
+						<ExclamationCircleIcon className='w-6 h-6' />
+						{state?.message}
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</>
 	);
 }

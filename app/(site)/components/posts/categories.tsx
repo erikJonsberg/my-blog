@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { SanityDocument } from "@sanity/client";
 
-export default async function PostsCategories({
-	categories = [],
+export default function PostsCategories({
+	categories,
 }: {
 	categories: SanityDocument[];
 }) {

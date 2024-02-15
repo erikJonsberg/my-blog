@@ -20,7 +20,7 @@ export default function Category({ category }: { category: SanityDocument }) {
 								priority
 								placeholder='blur'
 								blurDataURL={post?.mainImage.metadata.lqip}
-								alt={post?.title}
+								alt={post?.alt}
 							/>
 							<div className='absolute bottom-0 w-full pb-2 lg:p-0 backdrop-blur-xl bg-gray-600/20 h-24 flex justify-between items-center'>
 								<div className='px-4 flex flex-col'>

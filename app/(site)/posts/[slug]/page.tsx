@@ -1,31 +1,30 @@
-import { SanityDocument } from "@sanity/client";
-import Post from "../../components/posts/single-post";
-import { postPathsQuery, postQuery } from "@/sanity/lib/queries";
-import { sanityFetch, token } from "@/sanity/lib/fetch";
-import { client } from "@/sanity/lib/client";
-import PreviewProvider from "@/app/(site)/components/providers/preview-provider";
-import PreviewPost from "@/app/(site)/components/posts/preview-post";
+import { QueryParams, SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
 
-// Prepare Next.js to know which routes already exist
-export async function generateStaticParams() {
-	// Important, use the plain Sanity Client here
-	const posts = await client.fetch(postPathsQuery);
+import { loadQuery } from "@/sanity/lib/store";
+import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
+import Post from "../../components/posts/single-post";
+import PostPreview from "../../components/posts/preview-post";
+import { client } from "@/sanity/lib/client";
 
-	return posts;
+export async function generateStaticParams() {
+	const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY);
+
+	return posts.map((post) => ({
+		slug: post.slug.current,
+	}));
 }
 
-export default async function Page({ params }: { params: any }) {
-	const post = await sanityFetch<SanityDocument>({ query: postQuery, params });
-	const isDraftMode = draftMode().isEnabled;
+export default async function Page({ params }: { params: QueryParams }) {
+	const initial = await loadQuery<SanityDocument>(POST_QUERY, params, {
+		// Because of Next.js, RSC and Dynamic Routes this currently
+		// cannot be set on the loadQuery function at the "top level"
+		perspective: draftMode().isEnabled ? "previewDrafts" : "published",
+	});
 
-	if (isDraftMode && token) {
-		return (
-			<PreviewProvider token={token}>
-				<PreviewPost post={post} />
-			</PreviewProvider>
-		);
-	}
-
-	return <Post post={post} />;
+	return draftMode().isEnabled ? (
+		<PostPreview initial={initial} params={params} />
+	) : (
+		<Post post={initial.data} />
+	);
 }

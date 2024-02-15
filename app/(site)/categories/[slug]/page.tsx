@@ -1,20 +1,10 @@
-import { categoryQuery, categoryPathsQuery } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { CAT_QUERY } from "@/sanity/lib/queries";
 import { SanityDocument } from "next-sanity";
-import { client } from "@/sanity/lib/client";
 import Category from "../../components/posts/category";
+import { loadQuery } from "@/sanity/lib/store";
 
-// Prepare Next.js to know which routes already exist
-export async function generateStaticParams() {
-	// Important, use the plain Sanity Client here
-	const categories = await client.fetch(categoryPathsQuery);
+export default async function Page() {
+	const category = await loadQuery<SanityDocument>(CAT_QUERY);
 
-	return categories;
-}
-export default async function CategoryPage({ params }: { params: any }) {
-	const category = await sanityFetch<SanityDocument>({
-		query: categoryQuery,
-		params,
-	});
-	return <Category category={category} />;
+	return <Category category={category.data} />;
 }

@@ -16,7 +16,7 @@ export default defineType({
 			type: "string",
 		}),
 		defineField({
-			name: "message",
+			name: "messageFromUser",
 			title: "Message",
 			type: "text",
 		}),

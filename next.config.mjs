@@ -5,9 +5,12 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "**",
+				hostname: "cdn.sanity.io",
 			},
 		],
+	},
+	experimental: {
+		taint: true,
 	},
 };
 

@@ -2,9 +2,13 @@ import Posts from "./components/posts/all-posts";
 import Hero from "./components/layout/hero";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
+import dynamic from "next/dynamic";
 import { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
-import PreviewPosts from "./components/posts/preview-posts";
+
+const HomePagePreview = dynamic(
+	() => import("./components/posts/preview-posts")
+);
 
 export default async function Home() {
 	const initial = await loadQuery<SanityDocument[]>(
@@ -15,7 +19,7 @@ export default async function Home() {
 		}
 	);
 	return draftMode().isEnabled ? (
-		<PreviewPosts initial={initial} />
+		<HomePagePreview initial={initial} />
 	) : (
 		<main className='min-h-screen container mx-auto'>
 			<Hero />

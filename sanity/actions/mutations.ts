@@ -42,7 +42,6 @@ export async function addContact(
 				},
 			}
 		);
-		revalidatePath("/contact");
 		return { userMessage: "Thank you for your message." };
 	} catch (error) {
 		return { userMessage: "Something went wrong." };

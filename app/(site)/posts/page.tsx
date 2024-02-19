@@ -1,14 +1,10 @@
-import Posts from "../components/posts/all-posts";
-import dynamic from "next/dynamic";
-import Categories from "../components/posts/categories";
+import Posts from "@/components/posts/all-posts";
+import Categories from "@/components/posts/categories";
 import { POSTS_QUERY, CATS_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
-
-const PostsPagePreview = dynamic(
-	() => import("../components/posts/preview-posts")
-);
+import PreviewPosts from "@/components/posts/preview-posts";
 
 export default async function AllPosts() {
 	const initial = await loadQuery<SanityDocument[]>(
@@ -20,7 +16,7 @@ export default async function AllPosts() {
 	);
 	const categories = await loadQuery<SanityDocument[]>(CATS_QUERY);
 	return draftMode().isEnabled ? (
-		<PostsPagePreview initial={initial} />
+		<PreviewPosts initial={initial} />
 	) : (
 		<div className='py-24 sm:py-32'>
 			<div className='mx-auto max-w-7xl px-6 lg:px-8'>

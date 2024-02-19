@@ -2,10 +2,10 @@ import { draftMode } from "next/headers";
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter, Montserrat, Space_Mono } from "next/font/google";
-import Header from "./components/layout/header";
-import Providers from "./components/providers/providers";
+import Header from "@/components/layout/header";
+import Providers from "@/components/providers/providers";
 import { Suspense } from "react";
-import Footer from "./components/layout/footer";
+import Footer from "@/components/layout/footer";
 import LiveVisualEditing from "@/sanity/components/visual-editing";
 
 const inter = Inter({

@@ -1,14 +1,11 @@
 import { QueryParams, SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
-import dynamic from "next/dynamic";
+
 import { loadQuery } from "@/sanity/lib/store";
 import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
-import Post from "../../components/posts/single-post";
+import Post from "@/components/posts/single-post";
+import PostPreview from "@/components/posts/preview-post";
 import { client } from "@/sanity/lib/client";
-
-const PostPreview = dynamic(
-	() => import("../../components/posts/preview-post")
-);
 
 export async function generateStaticParams() {
 	const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY);

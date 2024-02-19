@@ -1,4 +1,4 @@
-import { Form } from "../components/forms/contact-form";
+import { Form } from "@/components/forms/contact-form";
 import {
 	BuildingOffice2Icon,
 	EnvelopeIcon,

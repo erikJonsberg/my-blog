@@ -1,10 +1,10 @@
-import Posts from "@/components/posts/all-posts";
-import Categories from "@/components/posts/categories";
+import Posts from "@/app/components/posts/all-posts";
+import Categories from "@/app/components/posts/categories";
 import { POSTS_QUERY, CATS_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
-import PreviewPosts from "@/components/posts/preview-posts";
+import PreviewPosts from "@/app/components/posts/preview-posts";
 
 export default async function AllPosts() {
 	const initial = await loadQuery<SanityDocument[]>(

@@ -45,11 +45,12 @@ export default defineType({
 					{ title: "Code", value: "code" },
 					{ title: "Strike", value: "strike-through" },
 					{ title: "Underline", value: "underline" },
+					{ title: "Highlight", value: "highlight" },
 				],
 				// Annotations can be any object structure – e.g. a link or a footnote.
 				annotations: [
 					{
-						title: "URL",
+						title: "External Link",
 						name: "link",
 						type: "object",
 						fields: [
@@ -57,6 +58,27 @@ export default defineType({
 								title: "URL",
 								name: "href",
 								type: "url",
+							},
+							{
+								title: "Open in new tab",
+								name: "blank",
+								type: "boolean",
+							},
+						],
+					},
+					{
+						name: "internalLink",
+						type: "object",
+						title: "Internal link",
+						fields: [
+							{
+								name: "reference",
+								type: "reference",
+								title: "Reference",
+								to: [
+									{ type: "post" },
+									// other types you may want to link to
+								],
 							},
 						],
 					},

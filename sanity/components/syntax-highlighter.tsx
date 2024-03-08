@@ -31,23 +31,18 @@ export function Code({
 	};
 
 	return (
-		<div className='rounded-lg relative'>
+		<div className='relative'>
 			<SyntaxHighlighter
 				customStyle={{
-					borderRadius: "1rem",
-					fontFamily: "var(--space-font)",
+					fontFamily: "var(--fira-code-font)",
 				}}
 				codeTagProps={{ style: { fontFamily: "inherit" } }}
-				wrapLongLines
 				language={language}
 				style={oneDark}
 			>
 				{children}
 			</SyntaxHighlighter>
-			<button
-				onClick={copyCode}
-				className='absolute top-0 right-0 p-2 rounded-full'
-			>
+			<button onClick={copyCode} className='absolute top-0 right-0 p-3'>
 				{!copied ? (
 					<ClipboardIcon className='w-6 h-6 text-purple-600' />
 				) : (

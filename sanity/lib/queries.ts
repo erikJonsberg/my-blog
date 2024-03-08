@@ -24,8 +24,25 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
     "slug": slug.current,
-    "mainImage": mainImage.asset->{url, metadata {lqip}},
-    body,
+    mainImage {
+        alt,
+        asset->{
+            url,
+            metadata {
+                lqip
+                }
+            },
+    },
+    body[]{
+        ...,
+        markDefs[]{
+            ...,
+            _type == "internalLink" => {
+                ...,
+                "slug": @.reference->slug,
+            },
+        },
+    },
     publishedAt,
     author->{
         name,

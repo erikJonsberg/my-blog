@@ -37,7 +37,7 @@ export default defineType({
 				{
 					name: "alt",
 					type: "string",
-					title: "Alternative Text",
+					title: "Alt Text",
 				},
 			],
 		}),

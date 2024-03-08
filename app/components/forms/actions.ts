@@ -1,6 +1,6 @@
 "use server";
 
-import { contactSchema } from "@/app/(site)/lib/validation";
+import { contactSchema } from "@/app/lib/validation";
 import { ZodError } from "zod";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;

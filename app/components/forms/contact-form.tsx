@@ -6,10 +6,10 @@ import {
 	UseFormRegister,
 	FieldPath,
 } from "react-hook-form";
-import { getFormData, State } from "@/sanity/actions/actions";
+import { getFormData, State } from "./actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactSchema } from "../../lib/validation-schema";
+import { contactSchema } from "../../lib/validation";
 import { ErrorMessage } from "@hookform/error-message";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";

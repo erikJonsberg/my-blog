@@ -7,7 +7,7 @@ dark: bg-gray-900, bg-gray-800, text-gray-50
 light: bg-gray-50, bg-rose-50, text-gray-900 */
 
   .light {
-    --foreground-hex: #111827;
+    --foreground-hex: #030712;
     --background-start: #f9fafb;
     --background-end: #fdf2f8;
   }
@@ -15,7 +15,7 @@ light: bg-gray-50, bg-rose-50, text-gray-900 */
     .dark {
       --foreground-hex: #f9fafb;
       --background-start: #111827;
-      --background-end: #1f2937;
+      --background-end: #111827;
     }
 
 body {
@@ -95,7 +95,7 @@ body {
   pre {
     @apply mb-4;
     @apply p-4;
-    @apply rounded-md;
+    @apply rounded-sm;
     @apply bg-gray-800;
     @apply text-gray-100;
   }

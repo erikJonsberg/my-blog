@@ -35,7 +35,6 @@ export const viewport = {
 export const metadata: Metadata = {
 	title: "Erik Jonsberg's Blog",
 	description: "A blog about web development, design, and other cool stuff.",
-	viewport,
 };
 
 const style: React.CSSProperties = {

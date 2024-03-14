@@ -25,8 +25,9 @@ export default async function Home() {
 					aria-hidden='true'
 				></div>
 			</div>
+
 			<h2 className='text-3xl text-center font-extrabold text-gray-900 dark:text-gray-50 sm:text-4xl'>
-				My Projects
+				Featured Posts
 			</h2>
 			<div className='mt-5'>
 				<Posts posts={initial.data} />

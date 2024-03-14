@@ -1,11 +1,7 @@
 "use client";
 
 import { Fragment, useState, useEffect } from "react";
-import {
-	SunIcon,
-	MoonIcon,
-	ComputerDesktopIcon,
-} from "@heroicons/react/20/solid";
+import { RxMoon, RxSun, RxDesktop } from "react-icons/rx";
 import { Listbox, Transition } from "@headlessui/react";
 import { useTheme } from "next-themes";
 
@@ -16,24 +12,24 @@ function classNames(...classes: string[]) {
 type ThemeOption = {
 	id: string;
 	name: string;
-	icon: any;
+	icon: JSX.Element;
 };
 
 const themeOptions: ThemeOption[] = [
 	{
 		id: "light",
 		name: "Light",
-		icon: <SunIcon className='h-5 w-5' />,
+		icon: <RxSun className='size-5' />,
 	},
 	{
 		id: "dark",
 		name: "Dark",
-		icon: <MoonIcon className='h-5 w-5' />,
+		icon: <RxMoon className='size-5' />,
 	},
 	{
 		id: "system",
 		name: "System",
-		icon: <ComputerDesktopIcon className='h-5 w-5' />,
+		icon: <RxDesktop className='size-5' />,
 	},
 ];
 
@@ -69,13 +65,12 @@ export default function DarkModeSelect() {
 				<>
 					<div className='relative'>
 						<Listbox.Button className='flex items-center'>
-							<MoonIcon
-								className='h-5 w-5 text-gray-900 dark:text-gray-50 hidden dark:inline'
+							<RxMoon
+								className='size-5 text-gray-900 dark:text-gray-50 hidden dark:inline'
 								aria-hidden='true'
 							/>
-
-							<SunIcon
-								className='h-5 w-5 text-gray-900 dark:text-gray-50 dark:hidden'
+							<RxSun
+								className='size-5 text-gray-900 dark:text-gray-50 dark:hidden'
 								aria-hidden='true'
 							/>
 						</Listbox.Button>

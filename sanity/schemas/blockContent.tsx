@@ -11,6 +11,10 @@ import { defineType, defineArrayMember } from "sanity";
  *  }
  */
 
+const HighlightDecorator = ({ children }: any) => (
+	<span style={{ backgroundColor: "yellow", color: "black" }}>{children}</span>
+);
+
 export default defineType({
 	title: "Block Content",
 	name: "blockContent",
@@ -45,7 +49,12 @@ export default defineType({
 					{ title: "Code", value: "code" },
 					{ title: "Strike", value: "strike-through" },
 					{ title: "Underline", value: "underline" },
-					{ title: "Highlight", value: "highlight" },
+					{
+						title: "Highlight",
+						value: "highlight",
+						icon: () => "H",
+						component: HighlightDecorator,
+					},
 				],
 				// Annotations can be any object structure – e.g. a link or a footnote.
 				annotations: [
@@ -110,8 +119,9 @@ export default defineType({
 					{ title: "TypeScript", value: "typescript" },
 					{ title: "JSON", value: "json" },
 					{ title: "Markdown", value: "markdown" },
-					{ title: "jsx", value: "jsx" },
-					{ title: "tsx", value: "tsx" },
+					{ title: "JSX", value: "jsx" },
+					{ title: "TSX", value: "tsx" },
+					{ title: "Bash", value: "sh" },
 				],
 			},
 		}),

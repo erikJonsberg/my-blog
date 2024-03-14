@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-	Bars3Icon,
-	XMarkIcon,
-	ArrowSmallRightIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import Link from "next/link";
 import Logo from "./logo";
@@ -55,16 +51,6 @@ export default function Navigation() {
 				</div>
 				<div className='hidden lg:flex items-center gap-x-12'>
 					<DarkModeSelect />
-					<Link
-						href='/studio'
-						className='inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-					>
-						Log in
-						<ArrowSmallRightIcon
-							className='-mr-0.5 h-5 w-5'
-							aria-hidden='true'
-						/>
-					</Link>
 				</div>
 			</nav>
 			<Transition show={mobileMenuOpen} as={Fragment}>
@@ -104,12 +90,6 @@ export default function Navigation() {
 										))}
 									</div>
 									<div className='py-6 flex items-center justify-between w-32'>
-										<Link
-											href='/studio'
-											className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 dark:text-gray-50 text-gray-900 dark:hover:bg-gray-900 hover:bg-gray-50'
-										>
-											Log in
-										</Link>
 										<DarkModeSelect />
 									</div>
 								</div>

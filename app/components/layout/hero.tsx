@@ -4,6 +4,7 @@ import { Reveal } from "../animation/reveal";
 import { DotGrid } from "../animation/dot-grid";
 import Link from "next/link";
 import { CTAArrow } from "../animation/cta-arrow";
+import { motion } from "framer-motion";
 
 export default function Hero() {
 	return (
@@ -30,16 +31,30 @@ export default function Hero() {
 
 					<Reveal>
 						<p className='pointer-events-auto max-w-xl text-sm text-gray-950 dark:text-gray-100 md:text-base'>
-							I&apos;ve spent the last 5 years building and scaling software for
-							some pretty cool companies. I also teach people to paint online
-							(incase you&apos;ve got an empty canvas layin&apos; around 🎨).
-							Let&apos;s connect!
+							With 15 years under my belt in the web development industry, I've
+							journeyed from the bloated ecosystem of WordPress, sculpting
+							bespoke websites, to now embracing the cutting-edge trio of
+							Next.js, Tailwind CSS, and Sanity headless CMS. My evolution in
+							the field is not just about changing tools but about adapting and
+							thriving amidst the digital renaissance. Let&apos;s connect! 👏{" "}
 						</p>
 					</Reveal>
 					<Reveal>
 						<Link href='/contact'>
-							<button className='pointer-events-auto mt-4 rounded bg-indigo-600 px-4 py-2 font-medium text-slate-100 transition-all hover:bg-indigo-700 active:scale-95 md:mt-6'>
-								Contact me
+							<button className='relative pointer-events-auto mt-4 rounded-md px-3 py-2 font-medium text-gray-100 md:mt-6 overflow-hidden'>
+								<span className='relative z-20'>Contact me</span>
+								<motion.div
+									initial={{ left: 0 }}
+									animate={{ left: "-300%" }}
+									whileHover={{ scale: 1.05 }}
+									transition={{
+										repeat: Infinity,
+										repeatType: "mirror",
+										duration: 4,
+										ease: "linear",
+									}}
+									className='bg-[linear-gradient(to_right,#e61453,#e68414,#8f14e6,#e614dc)] absolute z-0 inset-0 w-[400%]'
+								></motion.div>
 							</button>
 						</Link>
 					</Reveal>

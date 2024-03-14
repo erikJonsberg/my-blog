@@ -9,27 +9,27 @@ const navigation = {
 	social: [
 		{
 			name: "Reddit",
-			href: "#",
+			href: "https://www.reddit.com/user/hungryGhost50/",
 			icon: (props: any) => <FaRedditAlien {...props} />,
 		},
 		{
 			name: "Instagram",
-			href: "#",
+			href: "https://www.instagram.com/erikjonsberg/",
 			icon: (props: any) => <FaInstagram {...props} />,
 		},
 		{
 			name: "Twitter",
-			href: "#",
+			href: "https://twitter.com/erikjonsberg",
 			icon: (props: any) => <FaXTwitter {...props} />,
 		},
 		{
 			name: "GitHub",
-			href: "#",
+			href: "https://github.com/erikJonsberg",
 			icon: (props: any) => <FaGithub {...props} />,
 		},
 		{
 			name: "Discord",
-			href: "#",
+			href: "https://discord.com/erikjonsberg",
 			icon: (props: any) => <FaDiscord {...props} />,
 		},
 	],
@@ -53,7 +53,7 @@ export default function Footer() {
 								className='text-gray-500 hover:text-gray-400'
 							>
 								<span className='sr-only'>{item.name}</span>
-								<item.icon className='h-6 w-6' aria-hidden='true' />
+								<item.icon className='size-6' aria-hidden='true' />
 							</Link>
 						))}
 					</div>

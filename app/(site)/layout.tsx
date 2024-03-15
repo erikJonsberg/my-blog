@@ -33,7 +33,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-	title: "Erik Jonsberg's Blog",
+	title: "Erik Jonsberg&apos;s Blog",
 	description: "A blog about web development, design, and other cool stuff.",
 };
 

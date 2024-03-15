@@ -15,9 +15,9 @@ export default function Contact() {
 							Get in touch
 						</h2>
 						<p className='mt-6 text-lg leading-8 text-gray-900 dark:text-gray-300'>
-							Proin volutpat consequat porttitor cras nullam gravida at. Orci
-							molestie a eu arcu. Sed ut tincidunt integer elementum id sem.
-							Arcu sed malesuada et magna.
+							I&apos;m always open to new projects, collaborations, or just a
+							chat. Feel free to reach out to me using the contact form, or any
+							of the other methods below.
 						</p>
 						<dl className='mt-10 space-y-4 text-base leading-7 text-gray-900 dark:text-gray-300'>
 							<div className='flex gap-x-4'>

@@ -46,7 +46,7 @@ export default async function FeaturedPosts({
 											</time>
 										</div>
 									</div>
-									<div className='mt-2 lg:mt-0 text-gray-50 flex items-center first:mb-2 flex-col lg:flex-row'>
+									<div className='mt-2 lg:mt-0 text-gray-50 flex items-center first:mb-2 flex-row'>
 										{post.categories.map((category: any) => (
 											<div
 												key={category._id}

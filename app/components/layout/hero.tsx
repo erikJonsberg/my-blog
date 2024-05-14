@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Reveal } from "../animation/reveal";
-import { DotGrid } from "../animation/dot-grid";
-import Link from "next/link";
-import { CTAArrow } from "../animation/cta-arrow";
-import { motion } from "framer-motion";
+import { Reveal } from '../animation/reveal';
+import { DotGrid } from '../animation/dot-grid';
+import Link from 'next/link';
+import { CTAArrow } from '../animation/cta-arrow';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
 	return (
@@ -13,7 +13,7 @@ export default function Hero() {
 				<div className='pointer-events-none relative z-10'>
 					<Reveal>
 						<h1 className='pointer-events-auto text-6xl font-black text-gray-950 dark:text-gray-50 md:text-8xl'>
-							Hi, I&apos;m{" "}
+							Hi, I&apos;m{' '}
 							<span className='bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent'>
 								Erik
 							</span>
@@ -22,7 +22,7 @@ export default function Hero() {
 					</Reveal>
 					<Reveal>
 						<h2 className='pointer-events-auto my-2 text-2xl text-gray-950 dark:text-gray-50 md:my-4 md:text-4xl'>
-							I&apos;m a{" "}
+							I&apos;m a{' '}
 							<span className='bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent font-semibold'>
 								Jamstack Developer
 							</span>
@@ -36,22 +36,22 @@ export default function Hero() {
 							bespoke websites, to now embracing the cutting-edge trio of
 							Next.js, Tailwind CSS, and Sanity headless CMS. My evolution in
 							the field is not just about changing tools but about adapting and
-							thriving amidst the digital renaissance. Let&apos;s connect! 👏{" "}
+							thriving amidst the digital renaissance. Let&apos;s connect! 👏{' '}
 						</p>
 					</Reveal>
 					<Reveal>
 						<Link href='/contact'>
-							<button className='relative pointer-events-auto mt-4 rounded-md px-3 py-2 font-medium text-gray-100 md:mt-6 overflow-hidden'>
+							<button className='relative pointer-events-auto mt-4 rounded-md px-6 py-3 font-medium text-gray-100 md:mt-6 overflow-hidden'>
 								<span className='relative z-20'>Contact me</span>
 								<motion.div
 									initial={{ left: 0 }}
-									animate={{ left: "-300%" }}
+									animate={{ left: '-300%' }}
 									whileHover={{ scale: 1.05 }}
 									transition={{
 										repeat: Infinity,
-										repeatType: "mirror",
+										repeatType: 'mirror',
 										duration: 4,
-										ease: "linear",
+										ease: 'linear',
 									}}
 									className='bg-[linear-gradient(to_right,#e61453,#e68414,#8f14e6,#e614dc)] absolute z-0 inset-0 w-[400%]'
 								></motion.div>

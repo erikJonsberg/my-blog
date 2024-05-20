@@ -1,7 +1,6 @@
-//import { getPosts } from "@/src/sanity/utils/sanity-utils";
-import Link from "next/link";
-import Image from "next/image";
-import type { SanityDocument } from "@sanity/client";
+import Link from 'next/link';
+import Image from 'next/image';
+import type { SanityDocument } from '@sanity/client';
 
 export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 	return (
@@ -43,10 +42,10 @@ export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 										dateTime={post.publishedAt}
 										className='text-gray-50 text-sm lg:text-base'
 									>
-										{new Date(post.publishedAt).toLocaleDateString("en-US", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
+										{new Date(post.publishedAt).toLocaleDateString('en-US', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
 										})}
 									</time>
 								</div>

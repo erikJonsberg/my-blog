@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+import { groq } from 'next-sanity';
 
 // Posts
 export const POSTS_QUERY = groq`*[_type == "post" && defined(slug.current) ]{
@@ -58,6 +58,40 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
 export const postPathsQuery = groq`*[_type == "post" && defined(slug.current)][]{
     "params": { "slug": slug.current }
   }`;
+
+export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug.current) ]{
+    _id,
+    title,
+    "slug": slug.current,
+    "image": internalLinkmage.asset->{url, metadata {lqip}},
+    description,
+    publishedAt,
+    author->{
+        name,
+        "image": image.asset->url,
+    },
+    }`;
+
+export const PROJECT_QUERY = groq`*[_type == "project" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    image {
+        alt,
+        asset->{
+            url,
+            metadata {
+                lqip
+                }
+            },
+    },
+    description,
+    publishedAt,
+    author->{
+        name,
+        "image": image.asset->url,
+    },
+    }`;
 
 // Categories
 export const CATS_QUERY = groq`*[_type == "category" && defined(slug.current) ]{

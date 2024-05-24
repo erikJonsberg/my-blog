@@ -1,7 +1,7 @@
-//import { getPosts } from "@/src/sanity/utils/sanity-utils";
-import Link from "next/link";
-import Image from "next/image";
-import type { SanityDocument } from "@sanity/client";
+import Link from 'next/link';
+import Image from 'next/image';
+import type { SanityDocument } from '@sanity/client';
+import { urlForImage } from '@/sanity/lib/image';
 
 export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 	return (
@@ -26,7 +26,7 @@ export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 									))}
 								</div>
 								<Image
-									src={post.mainImage.url}
+									src={urlForImage(post.mainImage.url)}
 									className='absolute inset-0 -z-10 h-full w-full object-cover'
 									width={1024}
 									height={768}
@@ -43,10 +43,10 @@ export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 										dateTime={post.publishedAt}
 										className='text-gray-50 text-sm lg:text-base'
 									>
-										{new Date(post.publishedAt).toLocaleDateString("en-US", {
-											month: "long",
-											day: "numeric",
-											year: "numeric",
+										{new Date(post.publishedAt).toLocaleDateString('en-US', {
+											month: 'long',
+											day: 'numeric',
+											year: 'numeric',
 										})}
 									</time>
 								</div>

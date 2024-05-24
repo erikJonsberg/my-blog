@@ -1,24 +1,24 @@
 'use client';
 
-import { POST_QUERY } from '@/sanity/lib/queries';
+import { PROJECT_QUERY } from '@/sanity/lib/queries';
 import { QueryResponseInitial, useQuery } from '@sanity/react-loader';
 import { QueryParams, SanityDocument } from 'next-sanity';
 
-import Post from './single-post';
+import Project from './project';
 
-export default function PostPreview({
+export default function ProjectPreview({
 	initial,
 	params,
 }: {
 	initial: QueryResponseInitial<SanityDocument>;
 	params: QueryParams;
 }) {
-	const { data } = useQuery<SanityDocument | null>(POST_QUERY, params, {
+	const { data } = useQuery<SanityDocument | null>(PROJECT_QUERY, params, {
 		initial,
 	});
 
 	return data ? (
-		<Post post={data} />
+		<Project project={data} />
 	) : (
 		<div className='bg-red-100'>Post not found</div>
 	);

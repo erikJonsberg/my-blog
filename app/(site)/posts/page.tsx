@@ -1,17 +1,17 @@
-import Posts from "@/app/components/posts/all-posts";
-import Categories from "@/app/components/posts/categories";
-import { POSTS_QUERY, CATS_QUERY } from "@/sanity/lib/queries";
-import { loadQuery } from "@/sanity/lib/store";
-import { SanityDocument } from "next-sanity";
-import { draftMode } from "next/headers";
-import PreviewPosts from "@/app/components/posts/preview-posts";
+import Posts from '@/app/components/posts/posts';
+import Categories from '@/app/components/posts/categories';
+import { POSTS_QUERY, CATS_QUERY } from '@/sanity/lib/queries';
+import { loadQuery } from '@/sanity/lib/store';
+import { SanityDocument } from 'next-sanity';
+import { draftMode } from 'next/headers';
+import PreviewPosts from '@/app/components/posts/preview-posts';
 
 export default async function AllPosts() {
 	const initial = await loadQuery<SanityDocument[]>(
 		POSTS_QUERY,
 		{},
 		{
-			perspective: draftMode().isEnabled ? "previewDrafts" : "published",
+			perspective: draftMode().isEnabled ? 'previewDrafts' : 'published',
 		}
 	);
 	const categories = await loadQuery<SanityDocument[]>(CATS_QUERY);
@@ -25,7 +25,7 @@ export default async function AllPosts() {
 						Everything
 					</h2>
 					<p className='mt-2 text-lg leading-8 dark:text-gray-200 text-gray-600'>
-						Tips and tricks for building your next project and then some
+						Tips, tricks, and lessons learned
 					</p>
 				</div>
 				<Categories categories={categories.data} />

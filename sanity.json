@@ -1,0 +1,19 @@
+{
+	"root": true,
+	"project": {
+		"name": "Blog",
+		"basePath": "/studio"
+	},
+	"api": {
+		"projectId": "process.env.SANITY_STUDIO_API_PROJECT_ID",
+		"dataset": "process.env.SANITY_STUDIO_API_DATASET",
+		"apiVersion": "process.env.SANITY_STUDIO_API_VERSION"
+	},
+	"plugins": [
+		"@sanity/structureTool",
+		"@sanity/visionTool",
+		"@sanity/unsplashImageAsset",
+		"@sanity/codeInput",
+		"@sanity/presentationTool"
+	]
+}

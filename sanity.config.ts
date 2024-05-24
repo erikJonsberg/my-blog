@@ -1,15 +1,15 @@
-import { visionTool } from "@sanity/vision";
-import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
-import { codeInput } from "@sanity/code-input";
-import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
-import { apiVersion, dataset, projectId } from "./sanity/env";
-import { schema } from "./sanity/schema";
-import { presentationTool } from "sanity/presentation";
-import { locate } from "@/sanity/components/locate";
+import { visionTool } from '@sanity/vision';
+import { defineConfig } from 'sanity';
+import { structureTool } from 'sanity/structure';
+import { codeInput } from '@sanity/code-input';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
+import { apiVersion, dataset, projectId } from './sanity/env';
+import { schema } from './sanity/schema';
+import { presentationTool } from 'sanity/presentation';
+import { locate } from '@/sanity/components/locate';
 
 export default defineConfig({
-	basePath: "/studio",
+	basePath: '/studio',
 	projectId,
 	dataset,
 	schema,
@@ -22,7 +22,7 @@ export default defineConfig({
 			locate,
 			previewUrl: {
 				draftMode: {
-					enable: "/api/preview",
+					enable: '/api/draft',
 				},
 			},
 		}),

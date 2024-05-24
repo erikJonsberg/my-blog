@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import { PortableTextComponent } from '@/sanity/lib/portable-text-utils';
 import { SanityDocument } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/lib/client';
+import Link from 'next/link';
+import { FaGithub } from 'react-icons/fa6';
 
 const builder = imageUrlBuilder(client);
 
@@ -10,8 +11,12 @@ function urlFor(source: any) {
 	return builder.image(source);
 }
 
-export default async function Post({ post }: { post: SanityDocument }) {
-	const { title, mainImage, body } = post;
+export default async function Project({
+	project,
+}: {
+	project: SanityDocument;
+}) {
+	const { title, image, description, link, publishedAt } = project;
 	return (
 		<article className='min-h-screen mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-20'>
 			<div className='flex items-center justify-center p-6'>
@@ -23,20 +28,31 @@ export default async function Post({ post }: { post: SanityDocument }) {
 			</div>
 			<div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
 				<div className='mx-auto max-w-3xl'>
-					{mainImage ? (
+					{image ? (
 						<Image
-							src={urlFor(mainImage.asset.url).url()}
+							src={urlFor(image.asset.url).url()}
 							className='rounded-lg drop-shadow-md mb-6 z-0'
 							width={1024}
 							height={768}
 							priority
-							alt={mainImage.alt || ''}
+							alt={image.alt || ''}
 							placeholder='blur'
-							blurDataURL={mainImage.asset.metadata.lqip}
+							blurDataURL={image.asset.metadata.lqip}
 						/>
 					) : null}
-					<div className='prose dark:prose-invert dark:prose-dark prose-code:before:content-none prose-code:after:content-none prose-code:font-code prose-h2:text-3xl dark:prose-code:bg-black dark:prose-pre:!bg-black prose-pre:!rounded-lg prose-pre:!bg-gray-200 prose-h1:text-center max-w-5xl mt-8'>
-						{body ? <PortableTextComponent value={body} /> : null}
+					<div className='max-w-5xl mt-8'>
+						{description && { description }}
+						<div className='max-w-5xl mt-4 flex justify-between'>
+							<div className='text-lg font-bold'>
+								{publishedAt && { publishedAt }}
+							</div>
+							<div className='text-lg font-bold'>
+								<Link href={link}>
+									<FaGithub className='mr-2' />
+									View on Github
+								</Link>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

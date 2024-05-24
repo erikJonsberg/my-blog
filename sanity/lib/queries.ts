@@ -63,13 +63,10 @@ export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug.current)
     _id,
     title,
     "slug": slug.current,
-    "image": internalLinkmage.asset->{url, metadata {lqip}},
+    "screenshot": screenshot.asset->{url, metadata {lqip}, alt},
     description,
     publishedAt,
-    author->{
-        name,
-        "image": image.asset->url,
-    },
+    link,
     }`;
 
 export const PROJECT_QUERY = groq`*[_type == "project" && slug.current == $slug][0]{

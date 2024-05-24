@@ -1,23 +1,13 @@
-import Posts from "@/app/components/posts/all-posts";
-import Categories from "@/app/components/posts/categories";
-import { POSTS_QUERY, CATS_QUERY } from "@/sanity/lib/queries";
-import { loadQuery } from "@/sanity/lib/store";
-import { SanityDocument } from "next-sanity";
-import { draftMode } from "next/headers";
-import PreviewPosts from "@/app/components/posts/preview-posts";
+import Posts from '@/app/components/posts/all-posts';
+import Categories from '@/app/components/posts/categories';
+import { POSTS_QUERY, CATS_QUERY } from '@/sanity/lib/queries';
+import { loadQuery } from '@/sanity/lib/store';
+import { SanityDocument } from 'next-sanity';
 
-export default async function AllPosts() {
-	const initial = await loadQuery<SanityDocument[]>(
-		POSTS_QUERY,
-		{},
-		{
-			perspective: draftMode().isEnabled ? "previewDrafts" : "published",
-		}
-	);
+export default async function Page() {
+	const posts = await loadQuery<SanityDocument[]>(POSTS_QUERY);
 	const categories = await loadQuery<SanityDocument[]>(CATS_QUERY);
-	return draftMode().isEnabled ? (
-		<PreviewPosts initial={initial} />
-	) : (
+	return (
 		<div className='py-24 sm:py-32'>
 			<div className='mx-auto max-w-7xl px-6 lg:px-8'>
 				<div className='mx-auto max-w-2xl text-center'>
@@ -29,7 +19,7 @@ export default async function AllPosts() {
 					</p>
 				</div>
 				<Categories categories={categories.data} />
-				<Posts posts={initial.data} />
+				<Posts posts={posts.data} />
 			</div>
 		</div>
 	);

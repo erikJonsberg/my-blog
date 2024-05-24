@@ -25,7 +25,7 @@ export default defineType({
 			type: 'date',
 		}),
 		defineField({
-			name: 'image',
+			name: 'screenshot',
 			title: 'Project Screenshot',
 			type: 'image',
 			options: {
@@ -46,25 +46,17 @@ export default defineType({
 			type: 'text',
 		}),
 		defineField({
-			name: 'author',
-			title: 'Author',
-			type: 'reference',
-			to: { type: 'author' },
+			name: 'link',
+			title: 'Github Link',
+			type: 'url',
 		}),
 	],
 
 	preview: {
 		select: {
 			title: 'title',
-			author: 'author.name',
-			media: 'image',
-		},
-		prepare(selection) {
-			const { author } = selection;
-			return {
-				...selection,
-				subtitle: author && `${author} is a genius`,
-			};
+			subtitle: 'publishedAt',
+			media: 'screenshot',
 		},
 	},
 });

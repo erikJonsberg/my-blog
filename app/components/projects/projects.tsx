@@ -8,48 +8,67 @@ export default async function Projects({
 	projects: SanityDocument[];
 }) {
 	return (
-		<section className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-24'>
-			<div className='relative mx-auto grid max-w-2xl grid-rows-1 grid-cols-1 gap-8 mt-10 lg:max-w-none lg:grid-cols-2'>
+		<div className='mx-auto max-w-7xl px-6 lg:px-8'>
+			<div className='mx-auto max-w-2xl text-center'>
+				<h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-gray-50'>
+					My Projects
+				</h2>
+			</div>
+			<div className='mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
 				{projects?.length > 0 ? (
 					projects.map(async (project) => (
-						<div className='relative h-96 isolate flex flex-col justify-between overflow-hidden rounded-md bg-gray-900'>
-							<div className='mt-2 lg:mt-0 text-gray-50 px-6 py-4 flex items-center justify-end'></div>
-							<div key={project._id}>
+						<article
+							key={project._id}
+							className='flex flex-col items-start justify-between'
+						>
+							<div className='relative w-full'>
 								<Image
 									src={project.screenshot.url}
-									className='absolute inset-0 -z-10 h-full w-full object-cover'
+									className='aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]'
 									width={1024}
 									height={768}
 									priority
-									alt={project.title}
+									alt={project.screenshot.alt}
 									placeholder='blur'
 									blurDataURL={project.screenshot.metadata.lqip}
 								/>
-								<div className='w-full px-6 py-4 backdrop-blur-xl bg-gray-600/20 flex items-start flex-col'>
-									<h2 className='text-base lg:text-lg font-bold text-white m-0'>
-										<Link href={`/projects/${project.slug}`}>
-											{project.title}
-										</Link>
-									</h2>
-									<p>{project.description}</p>
+								<div className='absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10' />
+							</div>
+							<div className='max-w-xl'>
+								<div className='mt-8 flex items-center gap-x-4 text-xs'>
 									<time
 										dateTime={project.publishedAt}
-										className='text-gray-50 text-sm lg:text-base'
+										className='text-gray-500'
 									>
-										{new Date(project.publishedAt).toLocaleDateString('en-US', {
-											month: 'long',
-											day: 'numeric',
-											year: 'numeric',
-										})}
+										{project.publishedAt}
 									</time>
 								</div>
+								<div className='group relative'>
+									<h3 className='mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600'>
+										<span className='absolute inset-0' />
+										{project.title}
+									</h3>
+									<p className='mt-5 line-clamp-3 text-sm leading-6 text-gray-600'>
+										{project.description}
+									</p>
+								</div>
+								<div className='relative mt-8 flex items-center gap-x-4'>
+									<div className='text-sm leading-6'>
+										<p className='font-semibold text-gray-900'>
+											<Link href={project.link}>
+												<span className='absolute inset-0' />
+												View on Github
+											</Link>
+										</p>
+									</div>
+								</div>
 							</div>
-						</div>
+						</article>
 					))
 				) : (
-					<div className='p-4 text-red-500'>No projects found</div>
+					<p>No projects found</p>
 				)}
 			</div>
-		</section>
+		</div>
 	);
 }

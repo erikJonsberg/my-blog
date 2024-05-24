@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 export default function Hero() {
 	return (
-		<section className='text-gray-900 dark:text-gray-50 overflow-hidden px-8 py-24 md:px-12 md:py-32'>
+		<section className='text-gray-900 dark:text-gray-50 overflow-hidden px-8 pt-24 pb-8 md:px-12 md:pt-32 md:pb-16'>
 			<div className='relative mx-auto max-w-5xl'>
 				<div className='pointer-events-none relative z-10'>
 					<Reveal>

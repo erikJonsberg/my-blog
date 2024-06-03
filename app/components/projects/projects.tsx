@@ -44,21 +44,17 @@ export default async function Projects({
 									</time>
 								</div>
 								<div className='group relative'>
-									<h3 className='mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600'>
-										<span className='absolute inset-0' />
+									<h3 className='mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-gray-50'>
 										{project.title}
 									</h3>
-									<p className='mt-5 line-clamp-3 text-sm leading-6 text-gray-600'>
+									<p className='mt-2 text-sm leading-6 text-gray-600 dark:text-gray-50'>
 										{project.description}
 									</p>
 								</div>
-								<div className='relative mt-8 flex items-center gap-x-4'>
+								<div className='relative mt-2 flex items-center gap-x-4'>
 									<div className='text-sm leading-6'>
-										<p className='font-semibold text-gray-900'>
-											<Link href={project.link}>
-												<span className='absolute inset-0' />
-												View on Github
-											</Link>
+										<p className='font-semibold text-gray-900 dark:text-gray-50'>
+											<Link href={project.link}>View on Github</Link>
 										</p>
 									</div>
 								</div>

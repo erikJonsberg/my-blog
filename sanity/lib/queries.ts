@@ -98,25 +98,7 @@ export const CATS_QUERY = groq`*[_type == "category" && defined(slug.current) ]{
     description,
     }`;
 
-// Category
-export const CAT_QUERY = groq`*[_type == 'category' && slug.current == $slug][0]{
-    _id,
-  title,
-    "slug": slug.current,
-  "post": *[_type == "post" && references(^._id)]{
-    _id,
-    title,
-    "slug": slug.current,
-    "mainImage": mainImage.asset->{url, metadata {lqip}},
-    body,
-    publishedAt,
-    author->{
-        name,
-        "image": image.asset->url,
-    },
-  }
-}`;
-
+// Category Paths
 export const categoryPathsQuery = groq`*[_type == "category" && defined(slug.current)][]{
     "params": { "slug": slug.current }
   }`;

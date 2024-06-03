@@ -11,7 +11,7 @@ export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 						<div key={post._id}>
 							<div className='relative h-96 isolate flex flex-col justify-between overflow-hidden rounded-md bg-gray-900'>
 								<div className='mt-2 lg:mt-0 text-gray-50 px-6 py-4 flex items-center justify-end'>
-									{post.categories.map((category: any) => (
+									{post.categories.map(async (category: any) => (
 										<div
 											key={category._id}
 											className='first:mb-2 lg:first:mb-0'

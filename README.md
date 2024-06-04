@@ -49,24 +49,32 @@ Go to [`http://localhost:3000/studio`](http://localhost:3000/studio) to use the 
 - The bio is intentionally short. Should you want a longer one, consider adding an **About** page and linking to it from the synopsis. Don't make the homepage bio any longer as it will wreck the layout.
 - Currently, there is no feature to get **notifications** when someone submits the contact form, so you have to check the studio regularly. It's on my to-do list.
 - I removed the **visual editing** feature from the studio because I don't use it because it's just an extra layer and it does tell me anything that I don't already know. If you want to use it, here's a tutorial on how to [implement it](https://www.sanity.io/guides/nextjs-app-router-live-preview). I was thinking that it would be cool to use it for editing social media posts &mdash; like a template for a Twitter card and Facebook post.
-- There is currently **no** on-page SEO. There's a **dynamic sitemap generator** and a `robots.txt` file. But I haven't gotten around to adding fields for meta-tags to any of the pages or posts. It's a very high priority, but it isn't done. The Next.js 14 documentation has a comprehensive [guide to optimization](https://nextjs.org/docs/app/building-your-application/optimizing). If you feel like tackling this yourself, I would appreciate it if you'd do it as a **Pull Request** so I can enjoy the fruits of your labor. 😂
+- There is currently **no** on-page SEO. There's a **dynamic sitemap generator** and a `robots.txt` file. But I haven't gotten around to adding fields for meta-tags to any of the pages or posts. I also need to add `JSON-LD` structured data. It's a very high priority, but it isn't done. The Next.js 14 documentation has a comprehensive [guide to optimization](https://nextjs.org/docs/app/building-your-application/optimizing). If you feel like tackling this yourself, I would appreciate it if you'd do it as a **Pull Request** so I can enjoy the fruits of your labor. 😂
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Here's a list of features I want to add:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- animate the nav bar and page transitions
+- use skeletons instead of spinners
+- an inbox with notifications for the contact form submissions
+- breadcrumbs to posts
+- a sidebar on post pages with recent or featured posts
+- a lead magnet on the sidebar
+- social share buttons on posts
+- a little mini-bio on the sidebar
 
 ## Learn More
 
-v
-To learn more about Next.js, take a look at the following resources:
+To learn more about Next.js and Sanity CMS, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Sanity Documentation](https://www.sanity.io/docs) - learn about Sanity features and API.
+- [The official Sanity toolkit for Next.js](https://www.sanity.io/plugins/next-sanity) - learn about integrating Sanity with Next.js using the `next-sanity` package
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can check out [the Next.js](https://github.com/vercel/next.js/), [Sanity](https://github.com/sanity-io/sanity), and [next-sanity](https://github.com/sanity-io/next-sanity) GitHub repositories.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy this project is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

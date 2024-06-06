@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { SanityDocument } from '@sanity/client';
+import { FaGithub } from 'react-icons/fa6';
 
 export default async function Projects({
 	projects,
@@ -28,7 +29,7 @@ export default async function Projects({
 									width={1024}
 									height={768}
 									priority
-									alt={project.screenshot.alt}
+									alt={project.title}
 									placeholder='blur'
 									blurDataURL={project.screenshot.metadata.lqip}
 								/>
@@ -51,10 +52,17 @@ export default async function Projects({
 										{project.description}
 									</p>
 								</div>
-								<div className='relative mt-2 flex items-center gap-x-4'>
-									<div className='text-sm leading-6'>
-										<p className='font-semibold text-gray-900 dark:text-gray-50'>
-											<Link href={project.link}>View on Github</Link>
+								<div className='relative mt-2 flex justify-start items-center gap-4'>
+									<FaGithub className='size-6' />
+									<div className='flex-shrink'>
+										<p className='mb-0 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-50'>
+											<Link
+												className='underline hover:no-underline'
+												href={project.link}
+											>
+												{' '}
+												View on Github
+											</Link>
 										</p>
 									</div>
 								</div>

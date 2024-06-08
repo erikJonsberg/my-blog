@@ -30,7 +30,7 @@ export default async function Posts({ posts }: { posts: SanityDocument[] }) {
 									width={1024}
 									height={768}
 									priority
-									alt={post.title}
+									alt={post.alt}
 									placeholder='blur'
 									blurDataURL={post.mainImage.metadata.lqip}
 								/>

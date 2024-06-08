@@ -21,6 +21,8 @@ export default async function Page({ params }: { params: QueryParams }) {
 		perspective: draftMode().isEnabled ? 'previewDrafts' : 'published',
 	});
 
+	console.log(initial.data);
+
 	return draftMode().isEnabled ? (
 		<PostPreview
 			initial={initial}

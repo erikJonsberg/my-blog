@@ -1,7 +1,7 @@
 //import { getPosts } from "@/src/sanity/utils/sanity-utils";
-import Link from "next/link";
-import Image from "next/image";
-import type { SanityDocument } from "@sanity/client";
+import Link from 'next/link';
+import Image from 'next/image';
+import type { SanityDocument } from '@sanity/client';
 
 export default async function FeaturedPosts({
 	posts,
@@ -21,7 +21,7 @@ export default async function FeaturedPosts({
 									width={1024}
 									height={768}
 									priority
-									alt={post.title}
+									alt={post.alt}
 									placeholder='blur'
 									blurDataURL={post.mainImage.metadata.lqip}
 								/>
@@ -36,11 +36,11 @@ export default async function FeaturedPosts({
 												className='text-gray-50 text-sm lg:text-base'
 											>
 												{new Date(post.publishedAt).toLocaleDateString(
-													"en-US",
+													'en-US',
 													{
-														month: "long",
-														day: "numeric",
-														year: "numeric",
+														month: 'long',
+														day: 'numeric',
+														year: 'numeric',
 													}
 												)}
 											</time>

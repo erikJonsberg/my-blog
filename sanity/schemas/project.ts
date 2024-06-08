@@ -28,17 +28,17 @@ export default defineType({
 			name: 'screenshot',
 			title: 'Project Screenshot',
 			type: 'image',
+			fields: [
+				{
+					name: 'alt',
+					title: 'Alt Text',
+					type: 'string',
+				},
+			],
 			options: {
 				hotspot: true,
 				metadata: ['lqip'],
 			},
-			fields: [
-				{
-					name: 'alt',
-					type: 'string',
-					title: 'Alt Text',
-				},
-			],
 		}),
 		defineField({
 			name: 'description',

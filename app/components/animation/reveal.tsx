@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useAnimation, useInView, motion } from "framer-motion";
+import { useEffect, useRef } from 'react';
+import { useAnimation, useInView, motion } from 'framer-motion';
 
 export function Reveal({ children }: any) {
 	const ref = useRef(null);
@@ -10,13 +10,16 @@ export function Reveal({ children }: any) {
 
 	useEffect(() => {
 		if (isInView) {
-			mainControls.start("visible");
-			slideControls.start("visible");
+			mainControls.start('visible');
+			slideControls.start('visible');
 		}
 	}, [isInView, mainControls, slideControls]);
 
 	return (
-		<div ref={ref} className='relative w-fit overflow-hidden'>
+		<div
+			ref={ref}
+			className='relative w-fit overflow-hidden'
+		>
 			<motion.div
 				variants={{
 					hidden: { opacity: 0, y: 75 },
@@ -31,11 +34,11 @@ export function Reveal({ children }: any) {
 			<motion.div
 				variants={{
 					hidden: { left: 0 },
-					visible: { left: "100%" },
+					visible: { left: '100%' },
 				}}
 				initial='hidden'
 				animate={slideControls}
-				transition={{ duration: 0.5, ease: "easeIn" }}
+				transition={{ duration: 0.5, ease: 'easeIn' }}
 				className='absolute bottom-1 left-0 right-0 top-1 z-20 bg-indigo-600'
 			/>
 		</div>

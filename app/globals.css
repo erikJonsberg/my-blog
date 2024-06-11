@@ -6,113 +6,117 @@
 dark: bg-gray-900, bg-gray-800, text-gray-50
 light: bg-gray-50, bg-rose-50, text-gray-900 */
 
-  .light {
-    --foreground-hex: #030712;
-    --background-start: #f9fafb;
-    --background-end: #fdf2f8;
-  }
+.light {
+	--foreground-hex: #030712;
+	--background-start: #f9fafb;
+	--background-end: #fdf2f8;
+}
 
-    .dark {
-      --foreground-hex: #f9fafb;
-      --background-start: #111827;
-      --background-end: #111827;
-    }
+.dark {
+	--foreground-hex: #f9fafb;
+	--background-start: #111827;
+	--background-end: #111827;
+}
 
 body {
-  color: rgb(var(--foreground-hex));
+	color: rgb(var(--foreground-hex));
 
-  background-image: linear-gradient(
-      to bottom right,
-    var(--background-end),
-    var(--background-start));
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+	background-image: linear-gradient(
+		to bottom right,
+		var(--background-end),
+		var(--background-start)
+	);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 @layer base {
-  body {
-    @apply antialiased;
-  }
+	body {
+		@apply antialiased;
+	}
 
-  a:hover {
-    @apply underline;
-  }
+	a:hover {
+		@apply underline;
+	}
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply my-6 font-bold font-heading;
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply my-6 font-bold font-heading;
+	}
 
-  h1 {
-    @apply text-4xl;
-  }
+	h1 {
+		@apply text-4xl;
+	}
 
-  h2 {
-    @apply text-3xl;
-  }
+	h2 {
+		@apply text-3xl;
+	}
 
-  h3 {
-    @apply text-2xl;
-  }
+	h3 {
+		@apply text-2xl;
+	}
 
-  h4 {
-    @apply text-xl;
-  }
+	h4 {
+		@apply text-xl;
+	}
 
-  h5 {
-    @apply text-lg;
-  }
+	h5 {
+		@apply text-lg;
+	}
 
-  h6 {
-    @apply text-base;
-  }
+	h6 {
+		@apply text-base;
+	}
 
-  p {
-    @apply mb-4;
-  }
+	p {
+		@apply mb-4;
+	}
 
-  ul, ol {
-    @apply mb-4;
-  }
+	ul,
+	ol {
+		@apply mb-4;
+	}
 
-  ul {
-    @apply list-disc;
-  }
+	ul {
+		@apply list-disc;
+	}
 
-  ol {
-    @apply list-decimal;
-  }
+	ol {
+		@apply list-decimal;
+	}
 
-  li {
-    @apply mb-2;
-    @apply ml-8;
-  }
-  ::marker {
-    @apply text-gray-600;
-  }
+	li {
+		@apply mb-2;
+		@apply ml-8;
+	}
+	::marker {
+		@apply text-gray-600;
+	}
 
-  pre {
-    @apply mb-4;
-    @apply p-4;
-    @apply rounded-sm;
-    @apply bg-gray-800;
-    @apply text-gray-100;
-  }
+	pre {
+		@apply mb-4;
+		@apply p-4;
+		@apply rounded-sm;
+		@apply bg-gray-800;
+		@apply text-gray-100;
+	}
 }
 
 @layer utilities {
-  .text-shadow {
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  .triangle {
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 9px solid #f43f5e;
-  }
+	.text-shadow {
+		text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+	}
+	.triangle {
+		width: 0;
+		height: 0;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-bottom: 9px solid #f43f5e;
+	}
 }
-
-
-

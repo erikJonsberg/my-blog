@@ -53,7 +53,7 @@ export default async function RootLayout({
 			suppressHydrationWarning
 		>
 			<body
-				className={`${inter.variable} ${montserrat.variable} ${firaCode.variable} font-body flex-col mx-auto max-w-full min-h-screen`}
+				className={`${inter.variable} ${montserrat.variable} ${firaCode.variable} font-body mx-auto max-w-full min-h-screen`}
 			>
 				<Providers>
 					<Header />

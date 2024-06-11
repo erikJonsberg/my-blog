@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
-import Link from "next/link";
-import Logo from "./logo";
-import DarkModeSelect from "../ui/dark-mode-select";
+import { useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Fragment } from 'react';
+import Link from 'next/link';
+import Logo from './logo';
+import DarkModeSelect from '../ui/dark-mode-select';
 
 const navigation = [
-	{ name: "01. Home", href: "/" },
-	{ name: "02. Posts", href: "/posts" },
-	{ name: "03. Contact", href: "/contact" },
+	{ name: '01. Home', href: '/' },
+	{ name: '02. Posts', href: '/posts' },
+	{ name: '03. Contact', href: '/contact' },
 ];
 
 export default function Navigation() {
@@ -20,11 +20,14 @@ export default function Navigation() {
 	return (
 		<>
 			<nav
-				className='mx-auto flex max-w-7xl items-center justify-between lg:px-8'
+				className='mx-auto flex max-w-full items-center justify-between lg:px-8'
 				aria-label='Global'
 			>
 				<div className='flex items-center justify-center gap-x-12'>
-					<Link href='/' className='-m-1.5 p-1.5'>
+					<Link
+						href='/'
+						className='-m-1.5 p-1.5'
+					>
 						<Logo />
 					</Link>
 					<div className='hidden lg:flex lg:gap-x-12'>
@@ -46,16 +49,22 @@ export default function Navigation() {
 						onClick={() => setMobileMenuOpen(true)}
 					>
 						<span className='sr-only'>Open main menu</span>
-						<Bars3Icon className='h-6 w-6' aria-hidden='true' />
+						<Bars3Icon
+							className='h-6 w-6'
+							aria-hidden='true'
+						/>
 					</button>
 				</div>
 				<div className='hidden lg:flex items-center gap-x-12'>
 					<DarkModeSelect />
 				</div>
 			</nav>
-			<Transition show={mobileMenuOpen} as={Fragment}>
+			<Transition
+				show={mobileMenuOpen}
+				as={Fragment}
+			>
 				<Dialog onClose={() => setMobileMenuOpen(false)}>
-					<div className='fixed inset-0 z-30' />
+					<div className='fixed inset-0 z-50' />
 					<Transition.Child
 						as={Fragment}
 						enter='transition ease-in-out duration-300 transform'
@@ -73,11 +82,14 @@ export default function Navigation() {
 									onClick={() => setMobileMenuOpen(false)}
 								>
 									<span className='sr-only'>Close menu</span>
-									<XMarkIcon className='h-6 w-6' aria-hidden='true' />
+									<XMarkIcon
+										className='h-6 w-6'
+										aria-hidden='true'
+									/>
 								</button>
 							</div>
-							<div className='mt-6 flow-root'>
-								<div className='-my-6 divide-y divide-gray-500/10'>
+							<div className='mt-14 flow-root'>
+								<div className='-my-6 divide-y divide-gray-500/25'>
 									<div className='space-y-2 py-6'>
 										{navigation.map((item) => (
 											<a

@@ -24,14 +24,14 @@ export default async function Post({ post }: { post: SanityDocument }) {
 				<div className='mx-auto max-w-3xl'>
 					{post.mainImage ? (
 						<Image
-							src={urlFor(post.mainImage.asset.url).url()}
+							src={urlFor(post.mainImage.url).url()}
 							className='rounded-lg drop-shadow-md mb-6 z-0'
 							width={1024}
 							height={768}
 							priority
 							alt={post.alt}
 							placeholder='blur'
-							blurDataURL={post.mainImage.asset.metadata.lqip}
+							blurDataURL={post.mainImage.metadata.lqip}
 						/>
 					) : null}
 					<div className='prose dark:prose-invert dark:prose-dark prose-code:before:content-none prose-code:after:content-none prose-code:font-code prose-h2:text-3xl dark:prose-code:bg-black dark:prose-pre:!bg-black prose-pre:!rounded-lg prose-pre:!bg-gray-200 prose-h1:text-center max-w-5xl mt-8'>
